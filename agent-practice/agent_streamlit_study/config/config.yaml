@@ -1,0 +1,160 @@
+# 应用配置
+app:
+  title: "AI智能助手平台"
+  icon: "🤖"
+  layout: "wide"
+  version: "1.0.0"
+  author: "AI Assistant Team"
+
+# API配置
+api:
+  # 直接配置API密钥（请确保文件安全）
+  default_api_key: "sk-4a1ea5b99092432e94641d777ce20505"  # 你的实际API密钥
+  
+  default_base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+  alternative_base_urls:
+    - name: "阿里云DashScope"
+      url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      description: "阿里云官方API"
+      api_key: api.default_api_key  # 可选：为特定服务商配置专用密钥
+      
+    - name: "OpenAI"
+      url: "https://api.openai.com/v1"
+      description: "OpenAI官方API"
+      api_key: ""  # 如果有OpenAI密钥可以填入
+      
+    - name: "本地服务"
+      url: "http://localhost:8000/v1"
+      description: "本地部署的API服务"
+      api_key: "your-local-key"
+  
+  timeout: 60
+  max_tokens: 4096
+  temperature: 0.3
+  top_p: 0.9
+  
+  # API密钥优先级：环境变量 > 特定服务商配置 > 默认配置
+  use_environment_variables: true  # 是否优先使用环境变量
+
+# 页面配置
+pages:
+  travel_agent:
+    title: "旅行规划师"
+    icon: "✈️"
+    description: "使用AI智能规划您的下一次冒险之旅"
+    default_model: "qwen-turbo"
+    # API配置（可选，覆盖全局配置）
+    api_key: ""  # 留空则使用全局配置
+    base_url: ""  # 留空则使用全局配置
+    features:
+      - "🗺️ 智能行程规划"
+      - "📅 日历文件导出"
+      - "🏨 住宿餐饮推荐"
+      - "💰 预算估算建议"
+      - "🚀 流式实时生成"
+    
+  image_recognition:
+    title: "图像识别"
+    icon: "🖼️"
+    description: "使用先进的视觉大模型智能识别和分析图片内容"
+    default_model: "qwen2.5-vl-72b-instruct"
+    # API配置（可选，覆盖全局配置）
+    api_key: ""  # 留空则使用全局配置
+    base_url: ""  # 留空则使用全局配置
+    features:
+      - "🔍 智能内容识别"
+      - "🎨 多维度分析"
+      - "📊 结构化输出"
+      - "📄 分析报告导出"
+      - "⚡ 流式实时分析"
+
+  readme:
+    title: "项目说明文档"
+    icon: "📖"
+    description: "查看项目说明文档和使用指南"
+    features:
+      - "📖 项目概览"
+      - "🚀 功能特性"
+      - "🛠️ 技术架构"
+      - "⚙️ 配置说明"
+      - "📝 使用指南"
+  
+  stock_prediction:
+    title: "股票预测"
+    icon: "📈"
+    description: "使用LSTM模型进行股票价格预测和分析"
+    default_model: "qwen-turbo"
+    # API配置（可选，覆盖全局配置）
+    api_key: ""  # 留空则使用全局配置
+    base_url: ""  # 留空则使用全局配置
+    features:
+      - "📊 历史数据分析"
+      - "📈 价格预测图表"
+      - "🔍 技术指标分析"
+      - "📝 预测报告生成"
+      - "⚡ 实时预测更新"
+  semiconductor_yield: 
+    title: "半导体良率分析"
+    icon: "🔬"
+    description: "交互式、可干预的智能工作流，用于分析和诊断半导体良率问题"
+    default_model: "qwen-turbo"
+    features:
+      - "🔬 交互式工作流"
+      - "📝 可观测的步骤"
+      - "✍️ 对话式修改"
+      - "📊 结构化输出"
+      - "🚀 逐步执行控制" 
+
+# 安全配置
+security:
+  hide_api_key_in_ui: true  # 在界面中隐藏API密钥输入框
+  mask_api_key_display: true  # 显示时遮蔽API密钥
+  allow_api_key_override: false  # 是否允许在界面中覆盖配置文件的密钥
+
+# 流式生成配置
+streaming:
+  enabled: true
+  default_delay: 30  # 毫秒
+  min_delay: 10
+  max_delay: 100
+  show_cursor: true
+  cursor_symbol: "▊"
+
+# 文件上传配置
+upload:
+  max_file_size: 10  # MB
+  supported_image_formats: ["jpg", "jpeg", "png", "gif", "bmp", "webp"]
+  image_max_size: [1920, 1920]  # 像素
+
+# UI样式配置
+ui:
+  primary_color: "#667eea"
+  secondary_color: "#764ba2"
+  success_color: "#00C851"
+  warning_color: "#ffbb33"
+  error_color: "#ff4444"
+  
+  gradients:
+    main_header: "linear-gradient(90deg, #667eea 0%, #764ba2 100%)"
+    
+  shadows:
+    card: "0 2px 4px rgba(0,0,0,0.1)"
+    card_hover: "0 4px 8px rgba(0,0,0,0.15)"
+
+# 分析模式配置
+analysis_modes:
+  comprehensive:
+    name: "🎯 综合分析"
+    description: "全面深入的多维度分析"
+    
+  simple:
+    name: "⚡ 简洁描述"
+    description: "快速识别主要内容"
+    
+  detailed:
+    name: "🔍 详细报告"
+    description: "专业深入的技术分析"
+    
+  creative:
+    name: "🎨 创意描述"
+    description: "富有艺术感的创意解读"

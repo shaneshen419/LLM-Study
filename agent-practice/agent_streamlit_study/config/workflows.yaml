@@ -1,0 +1,22 @@
+semiconductor_yield:
+  - id: 1
+    name: "解析初始问题"
+    type: "llm_call"
+    params:
+      prompt_template: "作为一名半导体良率工程师，请分析这个问题的核心关注点: '{user_input}'"
+    status: "pending"
+    result: null
+  - id: 2
+    name: "查询相关批次数据"
+    type: "db_query"
+    params:
+      query_template: "SELECT * FROM wafer_lots WHERE issue_type = '良率下降'"
+    status: "pending"
+    result: null
+  - id: 3
+    name: "生成初步诊断报告"
+    type: "llm_call"
+    params:
+      prompt_template: "根据以下批次数据 {step_2_result}，结合初始问题，生成一份包含可能根因和建议检测项的初步诊断报告。"
+    status: "pending"
+    result: null
