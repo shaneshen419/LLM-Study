@@ -11,11 +11,11 @@
 
 主要分为以下五个核心模块：
 
-- [📂 01. 基础架构与核心原理 (Basic Architecture)](./01_Basic_Architecture)
-- [📂 02. 训练与优化算法 (Training & Optimization)](#-02-训练与优化算法-training--optimization)
-- [📂 03. 分布式工程与显存优化 (Distributed Engineering)](#-03-分布式工程与显存优化-distributed-engineering)
-- [📂 04. 模型架构分析 (Model Analysis)](#-04-模型架构分析-model-analysis)
-- [📂 05. 前沿技术与对齐 (Advanced Topics)](#-05-前沿技术与对齐-advanced-topics)
+- [📂 01. 基础架构与核心原理 (Basic Architecture)](./01_Basic_Architecture/)
+- [📂 02. 训练与优化算法 (Training & Optimization)](./02_Training_Optimization/)
+- [📂 03. 分布式工程与显存优化 (Distributed Engineering)](./03_Distributed_Engineering/)
+- [📂 04. 模型架构分析 (Model Analysis)](./04_Model_Analysis/)
+- [📂 05. 前沿技术与对齐 (Advanced Topics)](./05_Advanced_Topics/)
 
 ---
 
