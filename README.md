@@ -12,10 +12,28 @@
 主要分为以下五个核心模块：
 
 - [📂 01. 基础架构与核心原理 (Basic Architecture)](./01_Basic_Architecture/)
+    - Transformer
+    - Attention机制
+    - Positional Encoding
+    - BERT
 - [📂 02. 训练与优化算法 (Training & Optimization)](./02_Training_Optimization/)
+    - 优化器
+    - Flash Attention
+    - 量化技术
 - [📂 03. 分布式工程与显存优化 (Distributed Engineering)](./03_Distributed_Engineering/)
+    - 并行策略：DP、Tp、PP、SP、
+    - 显存优化：OOM解决方案
+    - SGLang：DP算法优化
+    - vLLM：KV Cache、PageAttention、Prefix Cache
 - [📂 04. 模型架构分析 (Model Analysis)](./04_Model_Analysis/)
+    - Dense模型
+    - MOE（混合专家）：稀疏激活原理、专家并行、门控网络与负载均衡
+    - Qwen系列：模型结构与分词器设计
+    - Deepseek：模型结构
 - [📂 05. 前沿技术与对齐 (Advanced Topics)](./05_Advanced_Topics/)
+    - RLHF对齐：奖励模型 (RM)、PPO、DPO、GRPO 等算法原理。
+    - 思维链（CoT）：Long Chain-of-Thought 的机制与知识蒸馏
+    - 推理：长上下文处理能力
 
 ---
 
