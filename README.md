@@ -9,13 +9,13 @@
 
 ## 📖 目录 (Table of Contents)
 
-- [1. 基础架构与核心原理 (Architecture)](#1-基础架构与核心原理-architecture)
-- [2. 训练与优化算法 (Training & Optimization)](#2-训练与优化算法-training--optimization)
-- [3. 高效计算与显存优化 (Efficiency & Quantization)](#3-高效计算与显存优化-efficiency--quantization)
-- [4. 分布式训练与工程 (Distributed Engineering)](#4-分布式训练与工程-distributed-engineering)
-- [5. 模型架构分析 (Model Analysis)](#5-模型架构分析-model-analysis)
-- [6. 对齐与强化学习 (Alignment & RLHF)](#6-对齐与强化学习-alignment--rlhf)
-- [7. 推理与长上下文 (Inference & Long Context)](#7-推理与长上下文-inference--long-context)
+主要分为以下五个核心模块：
+
+- [📂 01. 基础架构与核心原理 (Basic Architecture)](./01_Basic_Architecture)
+- [📂 02. 训练与优化算法 (Training & Optimization)](#-02-训练与优化算法-training--optimization)
+- [📂 03. 分布式工程与显存优化 (Distributed Engineering)](#-03-分布式工程与显存优化-distributed-engineering)
+- [📂 04. 模型架构分析 (Model Analysis)](#-04-模型架构分析-model-analysis)
+- [📂 05. 前沿技术与对齐 (Advanced Topics)](#-05-前沿技术与对齐-advanced-topics)
 
 ---
 
