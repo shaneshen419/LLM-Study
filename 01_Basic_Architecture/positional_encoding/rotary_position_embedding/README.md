@@ -316,10 +316,12 @@ $$
 现在，我们来计算这两个新位置的内积 $<q^{'},k^{'}>$ 。内积就是对应分量相乘再相加：
 
 $$
-<\mathbf{q^{'},k^{'}}>=(q_1cos(m\theta)-q_2sin(m\theta))\cdot
-(k_1cos(n\theta)-k_2sin(n\theta))\\
-+(q_1sin(m\theta)+q_2cos(m\theta))\cdot
+\begin{aligned}
+<\mathbf{q^{'},k^{'}}> &=(q_1cos(m\theta)-q_2sin(m\theta))\cdot
+(k_1cos(n\theta)-k_2sin(n\theta))
+&+(q_1sin(m\theta)+q_2cos(m\theta))\cdot
 (k_1sin(n\theta)+k_2cos(n\theta))
+\end{aligned}
 $$
 
 这看起来很乱，展开上述公式：
