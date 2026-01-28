@@ -397,7 +397,7 @@ $$
  - 向量 $\mathbf{q}$ 旋转 $m\theta$ 角度，在复数世界里就是 $q^{'}=q\cdot{e^{im\theta}}$。
  - 向量 $\mathbf{k}$ 旋转 $n\theta$ 角度，就是 $k^{'}=k\cdot{e^{in\theta}}$。
 
-**计算内积**：我们想计算 $\mathbf{<q^{'},k^{'}>}$ ,这等价于计算 $Re[q^{'}\cdot{(k^{'})^*}]$。
+**计算内积**：我们想计算 $\mathbf{<q^{'},k^{'}>}$ ,这等价于计算 $Re[q^{'}\cdot{(k^{'})^*}]$ 。
 
 $$
 \begin{aligned}
