@@ -54,8 +54,9 @@ $$
 
 ### 2. 注意力分数
 用 “sat” 的 Query ( $Q_{sat}$ ) 和句子中所有词的 Key ( $K_i$ ) 进行点积运算，来计算相关性。
+
 $$
-\mathbf{\text{score}_{the}} = Q_{sat}K_{the}
+\mathbf{score_{the}} = Q_{sat} K_{the}
 $$
 $$
 \mathbf{score_{cat}} = Q_{sat}K_{cat}
@@ -64,8 +65,8 @@ $$
 \mathbf{score_{sat}} = Q_{sat}K_{sat}
 $$
 $$
-. . .
-$$
+\cdots$$
+
 分数越高，代表那个词和 “sat” 的关系越紧密。在这个例子里，我们期望$\mathrm{score_{cat}}$会比较高。
 ### 3. 归一化（Softmax）
 将上一步得到的所有分数进行 Softmax 操作，得到一组权重 (weights)，这组权重的和为 1。
