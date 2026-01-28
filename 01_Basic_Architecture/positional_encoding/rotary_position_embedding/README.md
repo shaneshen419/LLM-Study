@@ -13,9 +13,9 @@ $$
 ）通过不同的线性变换（乘以不同的权重矩阵）得到的。
 假设我们有一个输入词向量 $x$ ：
 
-1. Query(Q)：$Q=xW_q$
-2. Key(K)：$K=xW_k$
-3. Value(V)：$V=xW_v$
+1. Query(Q)：$\mathbf{Q}=xW_q$
+2. Key(K)：$\mathbf{K}=xW_k$
+3. Value(V)：$\mathrbf{V}=xW_v$
 
 这里的$W_q，W_k，W_v$是三个独立的、需要通过模型训练学习的权重矩阵。
 </br>**为什么需要三个不同的矩阵？**
