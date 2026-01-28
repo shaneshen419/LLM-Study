@@ -327,11 +327,13 @@ $$
 这看起来很乱，展开上述公式：
 
 $$
-=[q_1k_1cos(m\theta)cos(n\theta)-q_1k_2cos(m\theta)sin(n\theta)\\
--q_2k_1sin(m\theta)cos(n\theta)+q_2k_2sin(m\theta)sin(n\theta)]\\
-+[q_1k_1sin(m\theta)sin(n\theta)+q_1k_2sin(m\theta)cos(n\theta)\\
-+q_2k_1cos(m\theta)sin(n\theta)+q_2k_2cos(m\theta)cos(n\theta)
+\begin{aligned}
+&=[q_1k_1cos(m\theta)cos(n\theta)-q_1k_2cos(m\theta)sin(n\theta)\\
+&-q_2k_1sin(m\theta)cos(n\theta)+q_2k_2sin(m\theta)sin(n\theta)]\\
+&+[q_1k_1sin(m\theta)sin(n\theta)+q_1k_2sin(m\theta)cos(n\theta)\\
+&+q_2k_1cos(m\theta)sin(n\theta)+q_2k_2cos(m\theta)cos(n\theta)
 ]
+\end{aligned}
 $$
 
 #### 3. 运用三角恒等式
