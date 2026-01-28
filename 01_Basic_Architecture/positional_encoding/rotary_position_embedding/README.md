@@ -68,7 +68,7 @@ $$
 \mathrm{weights} = \mathrm{softmax}([\mathrm{score_{the}},\mathrm{score_{cat}},\mathrm{score_{sat}},...])
 $$
 
-例如，可能得到$\mathrm{weights = [0.2,0.6,0.1,\:...]}$，这表示模型认为 “cat” 与 “sat” 的关系权重为 0.6，最为重要。
+例如，可能得到 $\mathrm{weights = [0.2,0.6,0.1,\:...]}$ ，这表示模型认为 “cat” 与 “sat” 的关系权重为 0.6，最为重要。
 ### 4. 加权求和
 用上一步得到的权重，去加权求和所有词的Value (V) 向量。
 
@@ -82,7 +82,7 @@ $$
 \mathrm{output_{sat}} = 0.2V_{the}+0.6V_{cat}+0.1V_{sat}+\:...
 $$
 
-**最终结果**：$\mathrm{output_{sat}}$ 就是 “sat” 这个词经过 Attention 机制之后新的表示。这个新的向量不仅包含了 “sat” 本身的信息，还重点融入了 “cat” 的信息以及少量其他词的信息。它变得 上下文感知 (context-aware) 了。
+**最终结果**： $\mathrm{output_{sat}}$ 就是 “sat” 这个词经过 Attention 机制之后新的表示。这个新的向量不仅包含了 “sat” 本身的信息，还重点融入了 “cat” 的信息以及少量其他词的信息。它变得 上下文感知 (context-aware) 了。
 
 ## 四、从单步计算到矩阵公式：Attention 公式的诞生
 在第三部分，我们以 “sat” 这个词为例，详细描述了如何为它计算出上下文感知的向量。但模型在实际运行时，需要一次性为句子中的所有词都计算出新的表示。如果为每个词都走一遍循环，效率会非常低下。
