@@ -809,7 +809,7 @@ $$
 
 将上述两部分合在一起，我们就得到了最终的、可在代码中高效实现的公式：
 
-$$\mathbf{q}^{'}_m=\mathbf{q}\odot\text{cos}\backslash{\text{\_}values}+\text{变换}(\mathbf{q})\odot\text{sin}\backslash{\text{\_}values}$$
+$$\mathbf{q}^{'}_m=\mathbf{q}\odot\text{cos}\backslash{\text values}+\text{变换}(\mathbf{q})\odot\text{sin}\backslash{\text values}$$
 
 这个变换操作 变换(q)，正是我们在代码中常见的 rotate_half(q) 函数所做的事情。
 
