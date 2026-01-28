@@ -63,19 +63,25 @@ $$\cdots$$
 分数越高，代表那个词和 “sat” 的关系越紧密。在这个例子里，我们期望$\mathrm{score_{cat}}$会比较高。
 ### 3. 归一化（Softmax）
 将上一步得到的所有分数进行 Softmax 操作，得到一组权重 (weights)，这组权重的和为 1。
+
 $$
 \mathrm{weights} = \mathrm{softmax}([\mathrm{score_{the}},\mathrm{score_{cat}},\mathrm{score_{sat}},...])
 $$
+
 例如，可能得到$\mathrm{weights = [0.2,0.6,0.1,\:...]}$，这表示模型认为 “cat” 与 “sat” 的关系权重为 0.6，最为重要。
 ### 4. 加权求和
 用上一步得到的权重，去加权求和所有词的Value (V) 向量。
+
 $$
 \mathrm{output_{sat}} = (\mathrm{weight_{the}}V_{the})+(\mathrm{weight_{cat}}V_{cat})+(\mathrm{weight_{sat}}V_{sat})+...
 $$
+
 或者简写为：
+
 $$
 \mathrm{output_{sat}} = 0.2V_{the}+0.6V_{cat}+0.1V_{sat}+\:...
 $$
+
 **最终结果**：$\mathrm{output_{sat}}$ 就是 “sat” 这个词经过 Attention 机制之后新的表示。这个新的向量不仅包含了 “sat” 本身的信息，还重点融入了 “cat” 的信息以及少量其他词的信息。它变得 上下文感知 (context-aware) 了。
 
 ## 四、从单步计算到矩阵公式：Attention 公式的诞生
