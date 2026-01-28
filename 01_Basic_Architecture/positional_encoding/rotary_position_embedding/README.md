@@ -146,7 +146,7 @@ $$
 为了缓解这个问题，他们提出在送入 Softmax 之前，将分数除以一个缩放因子，这个因子就是 $\sqrt{d_k}$
 
 $$
-\mathrm{Scaled\.Scores} = \frac{QK^T}{\sqrt{d_k}}
+\mathrm{Scaled Scores} = \frac{QK^T}{\sqrt{d_k}}
 $$
 
 这便是著名的缩放点积注意力 (Scaled Dot-Product Attention) 中 “缩放” (Scaled) 的由来。
