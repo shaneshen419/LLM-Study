@@ -272,19 +272,20 @@ q_2
 \end{bmatrix}
 $$ 
 
-在位置 $m$ 处，罗盘转了 $m\theta$ 度，所以它旋转后的新位置 $q^{'}$ 是：
+在位置 $m$ 处，罗盘转了 $m\theta$ 度，所以它旋转后的新位置 $q^{'}$ 是:
 
 $$
 q^{'}=f(q,m)=R_{m\theta}q=
 \begin{bmatrix}
 cos(m\theta)&-sin(m\theta)\\
-sin(m\theta)&cos(m\theta)\
-end{bmatrix}
+sin(m\theta)&cos(m\theta)
+\end{bmatrix}
 \begin{bmatrix}
 q_1\\
 q_2
 \end{bmatrix}
 $$
+
 $$
 =\begin{bmatrix}
 q_1cos(m\theta)-q_2sin(m\theta)\\
