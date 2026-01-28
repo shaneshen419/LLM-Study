@@ -247,7 +247,11 @@ RoPE的实现方式是“旋转”，但证明这个“旋转”能满足上述�
 #### 1. 定义操作
 一个二维向量
 
-$$\begin{bmatrix} x \\ y \end{bmatrix}$$
+$$
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}$$
 
 逆时针旋转角度 $\alpha$ ,就是左乘一个旋转矩阵：
 
