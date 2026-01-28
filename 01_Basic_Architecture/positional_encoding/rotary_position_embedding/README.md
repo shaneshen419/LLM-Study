@@ -654,7 +654,7 @@ $$\theta_i-\text{base}^{-\frac{2i}{d}},i\in[0,1,...,d/2-1]$$
 
 ### 实现层面的考量
 
-在实际代码实现中，为了提升计算效率和数值稳定性，通常会预先计算频率的倒数: $\text{inv\{_}freq}_i=\text{base}^{\frac{2i}{d}}$
+在实际代码实现中，为了提升计算效率和数值稳定性，通常会预先计算频率的倒数: $\text{inv_freq}_i=\text{base}^{\frac{2i}{d}}$
 
 这样，在计算旋转角度时，就可以将乘法 $m\theta_i$ 替换为等价的除法： $\frac{m}{\text{inv\_freq}_i}$
 
