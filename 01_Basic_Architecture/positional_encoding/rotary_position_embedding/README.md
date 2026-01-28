@@ -846,7 +846,7 @@ $$\mathbf{q}^{'}_m=\mathbf{q}\odot\text{cos}\backslash{\text values}+\text{变�
 
 ### 13.2. 间接影响 RoPE 的参数
 **（1）head_dim: 128**
- - 含义：每个注意力头的维度（$d$）。
+ - 含义：每个注意力头的维度（ $d$ ）。
  - 作用：决定 RoPE 的向量维度，影响频率分组数量 (d/2 = 64 组)。
 ### 13.3. Qwen3 的 RoPE 配置特点分析
 **核心特征: 超大 rope_theta = 1,000,000**
