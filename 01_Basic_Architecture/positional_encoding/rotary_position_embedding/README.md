@@ -402,7 +402,7 @@ $$
 $$
 \begin{aligned}
 \mathbf{<q^{'},k^{'}>}&=\text{Re}[(q\cdot{e^{im\theta}})\cdot{(k\cdot{e^{in\theta}})^*}] && ;将旋转后的复数代入 \\
-&=\text{Re}[q\cdot{e^{im\theta}}\cdot{k^*}\cdot{(e^{in\theta}})^*]&&;使用共轭性质(ab)^*=a^*b^*\\
+&=\text{Re}[q\cdot{e^{im\theta}}\cdot{k^*}\cdot{(e^{in\theta})}^*]&&;使用共轭性质(ab)^*=a^*b^*\\
 &=\text{Re}[q\cdot{e^{im\theta}}\cdot{k^*}\cdot{e^{-in\theta}}]&&;使用欧拉公式性质(e^{i\alpha})^*=e^{-i\alpha}\\
 &=\text{Re}[q\cdot{k^*}\cdot(e^{im\theta}\cdot{e^{-in\theta}})]&&;交换一下顺序，把与向量和角度相关的部分分开\\
 &=\text{Re}[(q\cdot{k^*})\cdot{e^{i(m-n)\theta}}]&&;使用指数性质 e^ae^b=e^{a+b}
