@@ -14,6 +14,7 @@
 - [📂 01. 基础架构与核心原理 (Basic Architecture)](./01_Basic_Architecture/)
     - Transformer
     - Attention机制
+        - [scaled_dot_product_attention](./01_Basic_Architecture/attention_mechanism/scaled_dot_product_attention/)
     - Positional Encoding
         - [Rotary Position Embedding](./01_Basic_Architecture/positional_encoding/rotary_position_embedding/)
     - BERT
