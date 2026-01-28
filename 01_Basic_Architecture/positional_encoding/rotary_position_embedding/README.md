@@ -275,16 +275,40 @@ $$
 在位置 $m$ 处，罗盘转了 $m\theta$ 度，所以它旋转后的新位置 $q^{'}$ 是：
 
 $$
-q^{'}=f(q,m)=R_{m\theta}q=\begin{bmatrix}cos(m\theta)&-sin(m\theta)\\sin(m\theta)&cos(m\theta)\end{bmatrix}\begin{bmatrix}q_1\\q_2\end{bmatrix}
+q^{'}=f(q,m)=R_{m\theta}q=
+\begin{bmatrix}
+cos(m\theta)&-sin(m\theta)\\
+sin(m\theta)&cos(m\theta)\
+end{bmatrix}
+\begin{bmatrix}
+q_1\\
+q_2
+\end{bmatrix}
 $$
 $$
-=\begin{bmatrix}q_1cos(m\theta)-q_2sin(m\theta)\\q_1sin(m\theta)+q_2cos(m\theta) \end{bmatrix}
+=\begin{bmatrix}
+q_1cos(m\theta)-q_2sin(m\theta)\\
+q_1sin(m\theta)+q_2cos(m\theta) 
+\end{bmatrix}
 $$
 
-同理，向量 $k=\begin{bmatrix}k_1\\k_2\end{bmatrix}$ 在位置 $n$ 处的新位置 $k^{'}$ 是：
+同理，向量 
+
+$$k=
+\begin{bmatrix}
+k_1\\
+k_2
+\end{bmatrix}
+$$
+
+在位置 $n$ 处的新位置 $k^{'}$ 是：
 
 $$
-k^{'}=f(\mathbf{k},n)=R_{n\theta}\mathbf{k}=\begin{bmatrix}k_1cos(n\theta)-k_2sin(n\theta)\\k_1sin(n\theta)+k_2cos(n\theta)\end{bmatrix}
+k^{'}=f(\mathbf{k},n)=R_{n\theta}\mathbf{k}=
+\begin{bmatrix}
+k_1cos(n\theta)-k_2sin(n\theta)\\
+k_1sin(n\theta)+k_2cos(n\theta)
+\end{bmatrix}
 $$
 
 #### 2. 开始漫长的计算
