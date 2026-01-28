@@ -91,6 +91,7 @@ $$
 
 ### 4.1 输入打包成矩阵
 假设我们的输入句子有 ${n}$ 个词，每个词的词向量维度是 $d_{model}$ 。我们可以把所有词向量堆叠起来，形成一个输入矩阵 $X$.
+
 $$
 X =
 \begin{bmatrix}
@@ -100,26 +101,31 @@ x_{\text{sat}} \\[4pt]
 ...
 \end{bmatrix}
 $$
+
 这个 $X$ 矩阵的维度是 $(n,d_{model})$
 
 ### 4.2 Q ,K,V 的矩阵计算
 我们不再为每个词单独计算 Q, K, V，而是用输入矩阵 $X$ 与权重矩阵 $W_q,W_k,W_v$ 直接相乘，一次性得到所有词的 Q, K, V 向量组成的矩阵。
 
 假设 Q, K 向量的维度是 $d_k$ ，V 向量的维度是 $d_v$（通常 $d_k=d_v$，分开定义是为了灵活性）。
+
 $$
 Q = XW_q\:\:\:\:(维度:(n,d_q)) \\
 K = XW_k\:\:\:\:(维度:(n,d_k)) \\
 V = XW_v\:\:\:\:(维度:(n,d_v)) 
 $$
+
 现在 $Q$ 矩阵的第 $i$ 行就是第 $i$ 个词的Query向量， $K$ 矩阵的第 $j$ 行就是第 $j$ 个词的Key向量，以此类推。
 
 ### 4.3 注意力分数的矩阵计算
 回顾一下，计算“sat” (第 $i$ 个词) 的注意力分数，我们需要用它的 $Q_i$ 去和所有词的 $K_j$ 进行点积。
 
 在矩阵中，这相当于用 $Q$ 矩阵的第 $i$ 行，去和 $K$ 矩阵的**每一行**做点积。这可以通过将 $K$ 矩阵转置（ $K^T$ ）然后与 $Q$ 矩阵相乘来实现。
+
 $$
 \mathrm{Scores}=QK^T
 $$
+
 验证一下这个操作：
  - $Q$ 的维度是 $(n,d_k)$
  - $K^T$的维度是 $(d_k,n)$
@@ -134,6 +140,7 @@ $$
 在 “Attention Is All You Need” 论文中，作者发现当 $d_k$ 的维度较大时，点积 $Q·K$ 的结果的方差也会增大，这可能导致数值过大。当这些很大的数值进入 Softmax 函数后，会使得梯度变得非常小，不利于模型训练。
 
 为了缓解这个问题，他们提出在送入 Softmax 之前，将分数除以一个缩放因子，这个因子就是 $\sqrt{d_k}$
+
 $$
 \mathrm{Scaled\;Scores} = \frac{QK^T}{\sqrt{d_k}}
 $$
@@ -142,15 +149,19 @@ $$
 
 ### 4.5 softmax加权求和
 接下来的步骤和之前完全一样，只是操作对象变成了整个矩阵：
+
 $$
 \mathrm{Output}=\mathrm{softmax}(\frac{QK^T}{\sqrt{d_k}})V
 $$
+
 最终输出的维度是 $(n,d_v)$，它是一个融合了整个句子上下文信息的新向量。
 ### 4.6 最终Attention公式
 通过将所有步骤矩阵化，我们最终得到了那个简洁而强大的 Scaled Dot-Product Attention 公式：
+
 $$
 \mathrm{Attention}(Q,K,V) = \mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
 $$
+
 这个公式优雅地概括了整个 Attention 机制的核心：
  - $QK^T$：计算所有query与Key之间的相似度。
  - $\frac{...}{\sqrt{d_k}}$：进行缩放，稳定训练。
@@ -231,32 +242,41 @@ RoPE的实现方式是“旋转”，但证明这个“旋转”能满足上述�
 
 #### 1. 定义操作
 一个二维向量 $\begin{bmatrix}x\\y\end{bmatrix}$ 逆时针旋转角度 $\alpha$ ,就是左乘一个旋转矩阵：
+
 $$
 R_{\alpha}=\begin{bmatrix}
 cos\alpha & -sin\alpha \\
 sin\alpha & cos\alpha
 \end{bmatrix}
 $$
+
 根据我们的“寻宝比喻”，向量 $q=\begin{bmatrix}q_1\\q_2\end{bmatrix}$ 在位置 $m$ 处，罗盘转了 $m\theta$ 度，所以它旋转后的新位置 $q^{'}$ 是：
+
 $$
 q^{'}=f(q,m)=R_{m\theta}q=\begin{bmatrix}cos(m\theta)&-sin(m\theta)\\sin(m\theta)&cos(m\theta)\end{bmatrix}\begin{bmatrix}q_1\\q_2\end{bmatrix}
 $$
 $$
 =\begin{bmatrix}q_1cos(m\theta)-q_2sin(m\theta)\\q_1sin(m\theta)+q_2cos(m\theta) \end{bmatrix}
 $$
+
 同理，向量 $k=\begin{bmatrix}k_1\\k_2\end{bmatrix}$ 在位置 $n$ 处的新位置 $k^{'}$ 是：
+
 $$
 k^{'}=f(\mathbf{k},n)=R_{n\theta}\mathbf{k}=\begin{bmatrix}k_1cos(n\theta)-k_2sin(n\theta)\\k_1sin(n\theta)+k_2cos(n\theta)\end{bmatrix}
 $$
+
 #### 2. 开始漫长的计算
 现在，我们来计算这两个新位置的内积 $<q^{'},k^{'}>$ 。内积就是对应分量相乘再相加：
+
 $$
 <\mathbf{q^{'},k^{'}}>=(q_1cos(m\theta)-q_2sin(m\theta))\cdot
 (k_1cos(n\theta)-k_2sin(n\theta))\\+
 (q_1sin(m\theta)+q_2cos(m\theta))\cdot
 (k_1sin(n\theta)+k_2cos(n\theta))
 $$
+
 这看起来很乱，展开上述公式：
+
 $$
 =[q_1k_1cos(m\theta)cos(n\theta)-q_1k_2cos(m\theta)sin(n\theta)\\
 -q_2k_1sin(m\theta)cos(n\theta)+q_2k_2sin(m\theta)sin(n\theta)]\\
@@ -264,12 +284,13 @@ $$
 +q_2k_1cos(m\theta)sin(n\theta)+q_2k_2cos(m\theta)cos(n\theta)
 ]
 $$
+
 #### 3. 运用三角恒等式
 现在，把含有相同 $q_ik_j$ 的项合并在一起：
- - **合并 $q_1k_1$ 项**：$q_1k_1(cos(m\theta)cos(n\theta)+sin(m\theta)sin(n\theta))$
- - **合并 $q_2k_2$ 项**：$q_2k_2(sin(m\theta)sin(n\theta)+cos(m\theta)cos(n\theta))$
- - **合并 $q_1k_2$ 项**：$q_1k_2(-cos(m\theta)sin(n\theta)+sin(m\theta)cos(n\theta))$
- - **合并 $q_2k_1$ 项**：$q_2k_1(-sin(m\theta)cos(n\theta)+cos(m\theta)sin(n\theta))$
+ - **合并 $q_1k_1$ 项**： $q_1k_1(cos(m\theta)cos(n\theta)+sin(m\theta)sin(n\theta))$
+ - **合并 $q_2k_2$ 项**： $q_2k_2(sin(m\theta)sin(n\theta)+cos(m\theta)cos(n\theta))$
+ - **合并 $q_1k_2$ 项**： $q_1k_2(-cos(m\theta)sin(n\theta)+sin(m\theta)cos(n\theta))$
+ - **合并 $q_2k_1$ 项**： $q_2k_1(-sin(m\theta)cos(n\theta)+cos(m\theta)sin(n\theta))$
 
 此时，我们需要使用“和差角公式”：
  - $cos(A-B)=cosAcosB+sinAsinB$
@@ -281,6 +302,7 @@ $$
  - $q_2k_1$ 的系数变成了 $-sin((m-n))\theta$。
 
 所以，整个表达式化简为：
+
 $$
 <\mathbf{q^{'},k^{'}}>=(q_1k_1+q_2k_2)cos((m-n)\theta)+(q_1k_2-q_2k_1)sin((m-n)\theta)
 $$
@@ -297,8 +319,9 @@ $$
  $q=q_1+iq_2$ 来表示。$q_1$ 是实部，$q_2$ 是虚部。
  - **旋转→复数乘法**：这是最关键的一步，在复数平面上，将一个复数 $z$ 乘以 $e^{i\alpha}=cos\alpha+isin\alpha$（**欧拉公式**），其几何意义就是将 $z$ 对应的向量**逆时针旋转 $\alpha$ 角度**，这个操作远比矩阵乘法来得简洁。
  - **内积→复数共轭**：两个向量 $a=(a_1,a_2)$ 和 $b=(b_1,b_2)$ 的内积是 $a_1b_1+a_2b_2$ 。我们看看对应的复数 $a=a_1+ia_2$ 和 $b=b_1+ib_2$ 能做什么。计算 $a$ 乘以 $b$ 的共轭：
- $$b^*=b_1-ib_2$$
- $$a\cdot{b^*}=(a_1+ia_2)(b_1-ib_2)=(a_1b_1+a_2b_2)+i(a_2b_1-a_1b_2)$$
+
+$$b^*=b_1-ib_2$$
+$$a\cdot{b^*}=(a_1+ia_2)(b_1-ib_2)=(a_1b_1+a_2b_2)+i(a_2b_1-a_1b_2)$$
  
  看，它的**实部** $Re[a\cdot{b^*}]$ 正好就是我们想要的内积！这里我们统一使用 $(\cdot)^*$ 表示复数共轭。
 
@@ -310,6 +333,7 @@ $$
  - 向量 $\mathbf{k}$ 旋转 $n\theta$ 角度，就是 $k^{'}=k\cdot{e^{in\theta}}$。
 
 **计算内积**：我们想计算 $\mathbf{<q^{'},k^{'}>}$ ,这等价于计算 $Re[q^{'}\cdot{(k^{'})^*}]$。
+
 $$
 \begin{aligned}
 \mathbf{<q^{'},k^{'}>}&=\text{Re}[(q\cdot{e^{im\theta}})\cdot{(k\cdot{e^{in\theta}})^*}] && ;将旋转后的复数代入 \\
@@ -342,6 +366,7 @@ $$
         - 最后，通过取实部 $\text{Re}[\cdot]$ 操作，将这个被旋转调整后的最终向量**投影到实轴上**，得到一个标量值。这个标量就是最终的注意力分数。
 
 最终的注意力分数是取其**实部**，即：
+
 $$\text{Re}[(q\cdot{k^*})\cdot{e^{i(m-n)\theta}}]$$
 
 这相当于将“语义相似度向量” $q\cdot{k^*}$ 旋转 $(m-n)\theta$ 角度后，再投影到实轴上。最终整个内积就是将原始向量的关系，进行一次只与相对位置有关的“再旋转”。这清晰地揭示了RoPE为何有效。它就像是开凿了一条穿越山体的隧道，让我们从起点直达终点，并且沿途还能欣赏山体内部的结构（问题的本质）。
@@ -350,9 +375,11 @@ $$\text{Re}[(q\cdot{k^*})\cdot{e^{i(m-n)\theta}}]$$
 我们已经通过数学证明，RoPE的核心是“旋转”，且最终的内积只与相对位置 $(m-n)$ 有关。现在，让我们深入探讨这一机制在实践中究竟意味着什么，它又是如何巧妙地解决了长距离依赖问题的。
 
 从复数法推导出的最终公式是：
+
 $$\mathbf{<q^{'},k^*>}=\text{Re}[(q\cdot{k^*})\cdot{e^{i(m-n)\theta}}]$$
 
 将其展开，我们得到一个更具体的表达式，它由 $cos$ 项和 $sin$ 项组成：
+
 $$\mathbf{<q^{'},k^{'}>}=(q_1k_1+q_2k_2)cos((m-n)\theta)+(q_1k_2-q_2k_1)sin((m-n)\theta)$$
 
 这个公式揭示了一个深刻的机制：注意力分数会随着相对距离 $(m-n)$ 的变化而发生**周期性**的变化。
@@ -378,15 +405,16 @@ $$\mathbf{<q^{'},k^{'}>}=(q_1k_1+q_2k_2)cos((m-n)\theta)+(q_1k_2-q_2k_1)sin((m-n
  - **维度对 $d-2,d-1$（低频）：**像时钟的**年针**，转速极慢（$\theta_{d/2-1}$ 很小）。
 
 最终的注意力分数，并非只看其中某一对维度的贡献，而是所有 $d/2$ 对维度点积结果的总和。
+
 $$\text{AttentionScore}(m,n)=\sum_{i=0}^{d/2-1}\text{Score}_i(m-n)$$
 
 其中，每一对维度的得分 $\text{Score}_i$ 都受到其对应频率 $\theta_i$ 的三角函数调制。这首由多个频率共同谱写的“交响乐”，是如何解决我们困惑的呢？
 
 让我们看一下“LLM”和“大语言模型”这两个词，在不同距离下，这套多频率系统会发生什么：
- - **场景一：距离很近** $(|m-n|=2)$
-    - **高频维度（秒针）：**$cos(2\cdot{\theta_{fast}})$ 角度变化明显，提供了强烈的“距离为2”的信号。
-    - **中频维度（分针）：**$cos(2\cdot\theta_{medium})$ 角度变化较小，但也贡献了有效的位置信息。
-    - **低频维度（年针）：**$\cos(2\cdot\theta_{slow})$ 角度几乎没变，$cos$ 值约等于1.
+ - **场景一：距离很近**  $(|m-n|=2)$
+    - **高频维度（秒针）：** $cos(2\cdot{\theta_{fast}})$ 角度变化明显，提供了强烈的“距离为2”的信号。
+    - **中频维度（分针）：** $cos(2\cdot\theta_{medium})$ 角度变化较小，但也贡献了有效的位置信息。
+    - **低频维度（年针）：** $\cos(2\cdot\theta_{slow})$ 角度几乎没变，$cos$ 值约等于1.
     - **模型看到的模式：**所有频率的维度都提供了清洗、非混淆的信号。这个组合构成了一个代表“距离=2”的独一无二的**位置指纹（Positional Fingerprint）**。
  - **场景二：距离很远** $(|m-n|=500)$
     - **高频维度（秒针）：**$cos(500\cdot\theta_{fast})$。由于 $\theta_{fast}$ 很大，这个维度已经旋转了几十上百圈，其相位变得不可预测，信息已经“混淆”或“饱和”。
@@ -452,15 +480,19 @@ $$\text{AttentionScore}(m,n)=\sum_{i=0}^{d/2-1}\text{Score}_i(m-n)$$
 ### （1）组合方式——点积中的自然求和
 
 这些波形的“组合”方式，其实就是注意力机制中最核心的运算——**点积**——所带来的**自然求和**。让我们从一个标准的 $d$ 维向量点积开始：
+
 $$\text{Score}=\mathbf{q\cdot{k}}=\sum_{j=0}^{d-1}q_ik_i$$
 
 在 RoPE 的“两两分组”框架下，这个求和可以被重写为对 $d/2$ 个“二维对”的点积求和：
+
 $$\text{Score}=\sum_{j=0}^{d/2-1}(\mathbf{q_{2j,2j+1}\cdot{k_{2j,2j+1}}})=\sum_{j=0}^{d/2-1}(q_{2j}k_{2j}+q_{2j+1}k_{2j+1})$$
 
 当RoPE对位置 $m$ 的 $q$ 和位置 $n$ 的 $k$ 施加旋转后，可以严格证明，**每一对** $j$ 的点击（我们称之为 $\text{Score}_j$）会变成一个只与相对距离 $(m-n)$ 和原始向量相关的函数：
+
 $$\text{Score}_j(m,n)=(q_{2j}k_{2j}+q_{2j+1}k_{2j+1})cos((m-n)\theta_j)\\+(q_{2j+1}k_{2j}-q_{2j}k_{2j+1})sin((m-n)\theta_j)$$
 
 这就像交响乐中的一个声部（例如小提琴声部）。而最终的总注意力分数，就是所有这些声部（即 $d/2$ 个“单对分数”）的总和，共同谱写出最终的乐章：
+
 $$\text{AttentionScore}(m,n)=\sum_{j=0}^{d/2-1}\text{Score}_j(m,n)$$
 
 所以，所谓的“组合”，其实就是注意力机制中一个再自然不過的**求和**操作。模型通过学习向量 $\mathbf{q}$ 和 $\mathbf{k}$ 的值，来决定每个声部（$\text{Score}_j$）的“基调”和“音量”，而 RoPE 则负责根据相对位置 $(m-n)$ 为每个声部加上精准的“节拍”和“旋律”。
@@ -498,9 +530,11 @@ RoPE 的解决方案既简单又巧妙：**分组旋转**。
 RoPE 的核心思想是，一个高维空间可以被看作是由多个相互正交的二维子空间（平面）组成的。因此，我们可以将一个 $d$ 维的向量，两两一组，拆分成 $d/2$ 个二维向量。
 
 假设我们有一个 $d$ 维的 Query 向量 $\mathbf{q}$：
+
 $$\mathbf{q}=(q_0,q_1,q_2,...,q_{d-2},q_{d-1})$$
 
 我们可以将其看作是 $d/2$ 个二维向量的集合：
+
 $$\mathbf{(q_0,q_1),(q_2,q_3),...,(q_{d-2},q_{d-1})}$$
 
 然后，对**每一组**二维向量，我们都应用前面学到的旋转操作。
@@ -528,6 +562,7 @@ $$\mathbf{(q_0,q_1),(q_2,q_3),...,(q_{d-2},q_{d-1})}$$
 ### 11.3. 频率 $\theta_i$ 的设计
 
 RoPE 的核心思想是为不同维度的特征引入不同频率的旋转，这些频率 $\theta_i$ 根据以下几何级数公式生成：
+
 $$\theta_i-\text{base}^{-\frac{2i}{d}},i\in[0,1,...,d/2-1]$$
 
 其中：
@@ -559,6 +594,7 @@ $$\theta_i-\text{base}^{-\frac{2i}{d}},i\in[0,1,...,d/2-1]$$
 
 ### 11.4. 从理论到实践：RoPE 的高效实现
 从形式上看，对一个位于位置 $m$ 的 $d$ 维向量 $\mathbf{q}$ 应用 RoPE 编码，等价于左乘一个块对角旋转矩阵 $\mathbf{R}_m$：
+
 $$
 \mathbf{q}^{'}_m=\mathbf{R_mq}=\begin{bmatrix}
 \text{cos}m\theta_0&&\text{-sin}m\theta_0&&0&&0&&\dots\\
@@ -581,6 +617,7 @@ $$
 **第一步：明确矩阵乘法的具体结果**
 
 我们先写出结果向量 $q^{'}_m$ 的前几个分量是什么样的：
+
 $$
 \begin{bmatrix}
 q^{'}_{m,0}\\
@@ -613,6 +650,7 @@ q_3
 $$
 
 展开来看，结果向量 $\mathbf{q}^{'}_{m}$ 的每个分量是：
+
 $$
 \mathbf{q}^{'}_{m,0}=q_0\text{cos}\;m\theta_0-q_1\text{sin}\;m\theta_0\\
 \mathbf{q}^{'}_{m,1}=q_0\text{sin}\;m\theta_0+q_1\text{cos}\;m\theta_0\\
@@ -624,6 +662,7 @@ $$
 **第二步：将结果向量分解为两部分**
 
 仔细观察上面的表达式，我们可以把结果向量 $\mathbf{q}^{'}_{m}$ 拆成两个向量的和：一个只包含 cos 项，另一个只包含 sin 项。
+
 $$
 \mathbf{q}^{'}_{m}=
 \begin{bmatrix}
@@ -646,6 +685,7 @@ $$
 
 现在，魔法发生了。我们发现上面两个向量都可以被表示为**两个向量的元素级乘法（Hadamard Product, 符号为 ）**。
  - 对于第一个 cos 项向量：
+
 $$
 \begin{bmatrix}
 q_0\\
@@ -663,7 +703,9 @@ q_3\\
 \vdots
 \end{bmatrix}
 $$
+
  - 对于第二个 sin 项向量，我们需要先对原始的 $\mathbf{q}$ 向量做一个特殊的“成对调换并变号”操作：
+
 $$
 \text{变换}(\mathbf{q})=
 \begin{bmatrix}
@@ -676,6 +718,7 @@ q_2\\
 $$
 
 然后，这个 sin 项向量就可以表示为：
+
 $$
 \begin{bmatrix}
 -q_1\\
@@ -697,6 +740,7 @@ $$
 **第四步：得到最终的高效实现公式**
 
 将上述两部分合在一起，我们就得到了最终的、可在代码中高效实现的公式：
+
 $$\mathbf{q}^{'}_m=\mathbf{q}\odot\text{cos}\backslash{\text{\_}values}+\text{变换}(\mathbf{q})\odot\text{sin}\backslash{\text{\_}values}$$
 
 这个变换操作 变换(q)，正是我们在代码中常见的 rotate_half(q) 函数所做的事情。
@@ -744,8 +788,10 @@ $$\mathbf{q}^{'}_m=\mathbf{q}\odot\text{cos}\backslash{\text{\_}values}+\text{�
  - **频率组数**: $d/2$ = 64
  - **最后一组频率的索引** $i$: 64 - 1 = 63
  - **最低频率** $\theta_{min}$:
+
 $$\theta_{min}=\text{base}^{-{2i/d}}=1000000^{-{2\cdot63/128}}=10^{6\cdot(-126/128)}=10^{-5.90625}\approx{1.24}$$
- - **对应的最长周期 T_max**：$T_{max}=\frac{2\pi}{\theta_{min}}\approx{\frac{2\times3.14159}{1.24\times10^{-6}}}\approx{5,066,758}\;\text{tokens}$
+
+ - **对应的最长周期 T_max**： $T_{max}=\frac{2\pi}{\theta_{min}}\approx{\frac{2\times3.14159}{1.24\times10^{-6}}}\approx{5,066,758}\;\text{tokens}$
 
 **结论**：
  - Qwen3 的 RoPE 最慢的“时针”转一圈需要超过 **500万** 个 token。
