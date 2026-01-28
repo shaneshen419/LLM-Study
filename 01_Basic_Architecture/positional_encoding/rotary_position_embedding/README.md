@@ -5,7 +5,7 @@
 在深入 RoPE 之前，我们必须首先牢固地掌握 Self-Attention 机制，特别是它为何需要位置编码。
 
 $$
-\mathrm{Attention}(Q,K,V) = \mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+\mathrm{Attention}(Q,K,V) = \mathrm{softmax}(\frac{QK^\top}{\sqrt{d_k}})V
 $$
 
 ## 二、技术解释：Q，K，V在做什么？
@@ -13,9 +13,9 @@ $$
 ）通过不同的线性变换（乘以不同的权重矩阵）得到的。
 假设我们有一个输入词向量 $x$ ：
 
-1. Query(Q)：$\mathbf{Q}=xW_{q}$
-2. Key(K)：$\mathbf{K}=xW_{k}$
-3. Value(V)：$\mathbf{V}=xW_{v}$
+1. Query(Q)：$\mathbf{Q} = xW_{q}$
+2. Key(K)：$\mathbf{K} = xW_{k}$
+3. Value(V)：$\mathbf{V} = xW_{v}$
 
 这里的$W_{q}$，$W_{k}$，$W_{v}$是三个独立的、需要通过模型训练学习的权重矩阵。
 </br>**为什么需要三个不同的矩阵？**
