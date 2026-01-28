@@ -60,7 +60,7 @@ $$\text{score}_{cat} = Q_{sat}K_{cat}$$
 $$\text{score}_{sat} = Q_{sat}K_{sat}$$
 $$\cdots$$
 
-分数越高，代表那个词和 “sat” 的关系越紧密。在这个例子里，我们期望$\mathrm{score_{cat}}$会比较高。
+分数越高，代表那个词和 “sat” 的关系越紧密。在这个例子里，我们期望 $\mathrm{score_{cat}}$ 会比较高。
 ### 3. 归一化（Softmax）
 将上一步得到的所有分数进行 Softmax 操作，得到一组权重 (weights)，这组权重的和为 1。
 
@@ -95,10 +95,10 @@ $$
 $$
 X =
 \begin{bmatrix}
-x_{\text{the}} \\[4pt]
-x_{\text{cat}} \\[4pt]
-x_{\text{sat}} \\[4pt]
-...
+x_{\text{the}} \\
+x_{\text{cat}} \\
+x_{\text{sat}} \\
+\cdots
 \end{bmatrix}
 $$
 
@@ -110,9 +110,9 @@ $$
 假设 Q, K 向量的维度是 $d_k$ ，V 向量的维度是 $d_v$（通常 $d_k=d_v$，分开定义是为了灵活性）。
 
 $$
-Q = XW_q\:\:\:\:(维度:(n,d_q)) \\
-K = XW_k\:\:\:\:(维度:(n,d_k)) \\
-V = XW_v\:\:\:\:(维度:(n,d_v)) 
+Q = XW_q\;(维度:(n,d_q)) \\
+K = XW_k\;(维度:(n,d_k)) \\
+V = XW_v\;(维度:(n,d_v)) 
 $$
 
 现在 $Q$ 矩阵的第 $i$ 行就是第 $i$ 个词的Query向量， $K$ 矩阵的第 $j$ 行就是第 $j$ 个词的Key向量，以此类推。
