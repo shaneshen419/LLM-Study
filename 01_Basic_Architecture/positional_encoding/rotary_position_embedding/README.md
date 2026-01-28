@@ -43,13 +43,9 @@ $$
 句子中的每一个词（包括 “sat” 自己）都需要扮演“被查询”的角色，因此每个词的向量 **$x_i$** 都需要生成自己的 Key 和 Value：
 
 $$
-K_{the} = C_{the}W_k,\quad V_{the} = C_{the}W_v
-$$
-$$
-K_{cat} = C_{cat}W_k,\quad V_{cat} = C_{cat}W_v
-$$
-$$
-K_{sat} = C_{sat}W_k,\quad V_{sat} = C_{sat}W_v
+K_{the} = C_{the}W_k,\quad V_{the} = C_{the}W_v\\
+K_{cat} = C_{cat}W_k,\quad V_{cat} = C_{cat}W_v\\
+K_{sat} = C_{sat}W_k,\quad V_{sat} = C_{sat}W_v\\
 $$
 
 ### 2. 注意力分数
