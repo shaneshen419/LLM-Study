@@ -15,6 +15,7 @@
     - Transformer
     - Attention机制
     - Positional Encoding
+        - [Rotary Position Embedding](./01_Basic_Architecture/rotary_position_embedding/)
     - BERT
 - [📂 02. 训练与优化算法 (Training & Optimization)](./02_Training_Optimization/)
     - 优化器
