@@ -317,8 +317,8 @@ $$
 
 $$
 <\mathbf{q^{'},k^{'}}>=(q_1cos(m\theta)-q_2sin(m\theta))\cdot
-(k_1cos(n\theta)-k_2sin(n\theta))\\+
-(q_1sin(m\theta)+q_2cos(m\theta))\cdot
+(k_1cos(n\theta)-k_2sin(n\theta)) \
++(q_1sin(m\theta)+q_2cos(m\theta))\cdot
 (k_1sin(n\theta)+k_2cos(n\theta))
 $$
 
