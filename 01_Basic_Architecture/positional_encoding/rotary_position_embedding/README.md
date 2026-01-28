@@ -55,13 +55,13 @@ $$
 ### 2. 注意力分数
 用 “sat” 的 Query ( $Q_{sat}$ ) 和句子中所有词的 Key ( $K_i$ ) 进行点积运算，来计算相关性。
 $$
-\mathrm{\text{score}_{the}} = Q_{sat}K_{the}
+\mathbf{\text{score}_{the}} = Q_{sat}K_{the}
 $$
 $$
-\mathrm{score_{cat}} = Q_{sat}K_{cat}
+\mathbf{score_{cat}} = Q_{sat}K_{cat}
 $$
 $$
-\mathrm{score_{sat}} = Q_{sat}K_{sat}
+\mathbf{score_{sat}} = Q_{sat}K_{sat}
 $$
 $$
 . . .
