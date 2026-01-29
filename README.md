@@ -34,10 +34,40 @@
     - Deepseek：模型结构
 - [📂 05. 前沿技术与对齐 (Advanced Topics)](./05_Advanced_Topics/)
     - RLHF对齐：奖励模型 (RM)、PPO、DPO、GRPO 等算法原理。
+        - [GDPO(Group reward-Decoupled Normalization Policy Optimization)](./05_Advanced_Topics/rlhf_alignment/GDPO/)
     - 思维链（CoT）：Long Chain-of-Thought 的机制与知识蒸馏
     - 推理：长上下文处理能力
+- [📂 06. 应用开发与Agent生态 (Application & Agent Ecosystem)](./06_Application_Agent_Ecosystem/)
+    - **RAG与数据增强**
+        - LlamaIndex框架原理
+        - 向量数据库 (Vector DB) 与索引策略
+        - 文本向量化 (Embeddings) 与语义检索  <-- 你提到的"文本量化"如果是指文本转向量，放这里
+    - **Agent架构与框架**
+        - LangChain核心组件 (Chains, Memory)
+        - Agent设计模式 (ReAct, Plan-and-Solve)
+        - 多智能体协作 (Multi-Agent Systems, e.g., MetaGPT, AutoGen)
+    - **协议与工具**
+        - MCP (Model Context Protocol) 标准
+        - Tool Use (Function Calling) 原理
 
 ---
+## 📚已经完成的部分
+- [RoPE：rotary_position_embedding](./01_Basic_Architecture/positional_encoding/rotary_position_embedding/)
+- [SDPA：scaled_dot_product_attention](./01_Basic_Architecture/attention_mechanism/scaled_dot_product_attention/)
+---
+
+## ⏰后续计划
+- Transformer架构各个模块的功能
+- 几种并行策略（TP、PP...）
+- 优化器原理
+- RLHF的几种算法
+- BERT、CLIP模型原理
+- MOE、Dense模型
+- vLLM架构原理：KV Cache、PageAttention、Prefix Cache
+- SGLang架构原理
+- Qwen1、2、3模型架构
+- Deepseek模型架构
+- Application Agent Ecosystem部分
 
 ## 🛠️ 关于笔记
 本仓库笔记基于个人学习整理，参考了相关论文、官方文档及技术博客。如有错误，欢迎 Issue 指正。
