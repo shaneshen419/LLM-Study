@@ -49,6 +49,8 @@
     - **协议与工具**
         - MCP (Model Context Protocol) 标准
         - Tool Use (Function Calling) 原理
+- [📂 07. 思考与创新 (Thinking Space)](./07_Thinking_Space/)
+
 
 ---
 ## 📚已经完成的部分
