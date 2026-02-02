@@ -30,15 +30,15 @@ $$
             - 当 $i=j$ 时：推导后得到 $a_i(1-a_i)$
             - 当 $i\neq j$ 时：推导后得到 $-a_ja_i$
         - 第三步：合并，我们将上述两步结合起来计算 $\frac{\partial L}{\partial z_i}$ 就会得到： $\frac{\partial L}{\partial z_i}=\sum_j{\frac{\partial L}{\partial a_j}\cdot{\frac{\partial a_j}{\partial z_i}}}$ 代入第一步的结果： $=\sum_j{(-\frac{y_j}{a_j})\cdot \frac{\partial a_j}{\partial z_i}}$ 。为了利用第二步的结论，我们将求和拆分为 $j=i$ 何 $j\neq i$ 两部分： 
-        
-        $$
-        \begin{align}
-        \frac{\partial L}{\partial z_i}&=-\frac{y_i}{a_i}\cdot a_i(1-a_i)+\sum_{j\neq i} (-\frac{y_j}{a_j})\cdot (-a_j a_i) \\
-        &=-y_i(1-a_i)+\sum_{j\neq i}(y_j a_i)\\
-        &=-y_i+y_i a_i+\sum_{j\neq i}y_j a_i\\
-        &=-y_i+a_i(1)
-        \end{align}
-        $$
+
+$$
+\begin{align}
+\frac{\partial L}{\partial z_i}&=-\frac{y_i}{a_i}\cdot a_i(1-a_i)+\sum_{j\neq i} (-\frac{y_j}{a_j})\cdot (-a_j a_i) \\
+&=-y_i(1-a_i)+\sum_{j\neq i}(y_j a_i)\\
+&=-y_i+y_i a_i+\sum_{j\neq i}y_j a_i\\
+&=-y_i+a_i(1)
+\end{align}
+$$
 
         这里(3)->(4)主要是因为 $y$ 是One-hot向量，所有元素的和为 $1$ ，即 $\sum y_k=1$ 。
 
