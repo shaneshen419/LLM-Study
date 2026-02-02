@@ -68,8 +68,8 @@ $$
 - **功能** ：用于 Encoder-Decoder 架构（如原始 Transformer, T5）。连接编码器和解码器。
 - **原理** ：让解码器生成的序列能够利用编码器输入的源信息。
 - **区别** ：
-    - **Query( $ Q $ )** 来自Decoder的上一层输出。
-    - **Key( $ K $ ) & Value( $V$ )** 来自Encoder的最终输出。 
+    - **Query**( $Q$ )来自Decoder的上一层输出。
+    - **Key**( $K$ ) & Value( $V$ )来自Encoder的最终输出。 
 
 ## [五、位置编码(Embedding)请参考](../positional_encoding/rotary_position_embedding/)
 
