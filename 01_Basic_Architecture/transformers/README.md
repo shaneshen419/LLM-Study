@@ -54,13 +54,11 @@ $$
 - **公式**：
 
 $$
-\mathbf{M}_{ij}=
-\left\{
-\begin{array}{l}
-0\qquad if \quad i>=j\\
--\infty \qquad if \quad i<j>
-\end{array}
-\right\}
+\mathbf{M}_{ij} = 
+\begin{cases} 
+0 & 	\text{if }\quad i \ge j \\
+-\infty & 	\text{if }\quad i < j
+\end{cases}
 $$
 $$
 \text{MaskAttention}=\text{softmax}(\frac{QK^T}{\sqrt{d_k}}+M)V
