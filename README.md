@@ -34,6 +34,7 @@
     - Deepseek：模型结构
 - [📂 05. 前沿技术与对齐 (Advanced Topics)](./05_Advanced_Topics/)
     - RLHF对齐：奖励模型 (RM)、PPO、DPO、GRPO 等算法原理。
+        - [PPO(Proximal Policy Optimization)](./05_Advanced_Topics/ppo/)
         - [GDPO(Group reward-Decoupled Normalization Policy Optimization)](./05_Advanced_Topics/rlhf_alignment/GDPO/)
     - 思维链（CoT）：Long Chain-of-Thought 的机制与知识蒸馏
     - 推理：长上下文处理能力
