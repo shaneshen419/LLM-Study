@@ -60,7 +60,7 @@ $$
 0\qquad if \quad i>=j\\
 -\infty \qquad if \quad i<j>
 \end{array}
-\right}
+\right\}
 $$
 $$
 \text{MaskAttention}=\text{softmax}(\frac{QK^T}{\sqrt{d_k}}+M)V
