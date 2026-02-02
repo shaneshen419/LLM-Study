@@ -12,7 +12,7 @@
 主要分为以下五个核心模块：
 
 - [📂 01. 基础架构与核心原理 (Basic Architecture)](./01_Basic_Architecture/)
-    - Transformer
+    - [Transformer](./01_Basic_Architecture/transformers/)
     - Attention机制
         - [scaled_dot_product_attention](./01_Basic_Architecture/attention_mechanism/scaled_dot_product_attention/)
     - Positional Encoding

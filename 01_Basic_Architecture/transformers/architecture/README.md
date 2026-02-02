@@ -71,7 +71,7 @@ $$
     - **Query**( $Q$ )来自Decoder的上一层输出。
     - **Key**( $K$ ) & Value( $V$ )来自Encoder的最终输出。 
 
-## [五、位置编码(Embedding)请参考](../positional_encoding/rotary_position_embedding/)
+## [五、位置编码(Embedding)请参考](../../positional_encoding/)
 
 ## 六、前馈网络(FFN / MLP)
 - **功能**：Transformer 中的“记忆”区域和非线性变换核心。Attention 负责“路由信息”，FFN 负责“处理和存储知识”。
