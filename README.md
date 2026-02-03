@@ -27,7 +27,7 @@
     - 量化技术
 - [📂 03. 分布式工程与显存优化 (Distributed Engineering)](./03_Distributed_Engineering/)
     - 并行策略：DP、TP、PP、SP、EP
-        - [parallel strategy]
+        - [parallel strategy](./03_Distributed_Engineering/parallel%20strategy/)
     - 显存优化：OOM解决方案
     - SGLang：DP算法优化
     - vLLM：KV Cache、PageAttention、Prefix Cache
