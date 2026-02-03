@@ -56,11 +56,6 @@
         - Tool Use (Function Calling) 原理
 - [📂 07. 思考与创新 (Thinking Space)](./07_Thinking_Space/)
 
-
----
-## 📚已经完成的部分
-- [RoPE：rotary_position_embedding](./01_Basic_Architecture/positional_encoding/rotary_position_embedding/)
-- [SDPA：scaled_dot_product_attention](./01_Basic_Architecture/attention_mechanism/scaled_dot_product_attention/)
 ---
 
 ## ⏰后续计划
