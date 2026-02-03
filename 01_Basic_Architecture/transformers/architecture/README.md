@@ -1,6 +1,33 @@
 # Transformer架构
 这部分主要介绍Transformer架构的：self-Attention机制、多头注意力(MHA、MQA、GQA)、掩码自注意力、交叉注意力(cross attention)、位置编码(Embedding)、前馈网络(FFN)、残差连接、层归一化(Batch Norm、Layer Norm、RMSNorm)各自的功能。
 
+## Transformer 的架构，Encoder和Decoder是什么？
+1. **宏观视角：Transformer=堆叠的Encoder + 堆叠的Decoder。**
+    - Transformer 是一个纯注意力（attention-only）的框架。模型架构的一侧是N个相同的Encoder层（原论文是6层），右侧是N个相同的Decoder层（原论文6层）。连接：Encoder 的最终输出序列被 Decoder 的每一层通过交叉注意力
+（cross-attention）调用
+2. **Encoder：把输入序列变成“上下文感知”的表征**
+    
+    每层Encoder 由两个子层构成，子层之间用残差 + LayerNorm
+    - **多头注意力（Multi-Head Self-Attention）**
+        - 输入序列自注意力，生成双向的注意力权重。
+        - 每个token 都能同时看到左侧和右侧的所有token，因此编码携带全局上
+下文。
+    - **位置前馈网络FFN**
+        - 连个线性变换 + ReLUctant（或GELU/Swish 等变体）。
+        - 对序列中每个token独立作用，提升非线性表达能力。
+    - **Decoder：自回归地生成输出序列**
+        - **Masked多头自注意力**
+            - 与Encoder 类似，但使用下三角掩码，确保第t个位置只能看到1...t-1的信息，保持自回归特性。
+        - **交叉注意力**
+            - Query 来自Decoder层，key/value 来自Encoder 输出。
+            - 让生成侧在每一步都能动态检索源序列中最相关的片段。
+        - **位置前馈网络**
+    - **Encoder vs Decoder 的核心差异**
+        - 注意力方向：Encoder 是双向（可见全部输入），Decoder 是单向（仅能看就按已经生成的部分）
+        - 交叉注意力：只有Decoder有，与Encoder输出交互。 
+        - 掩码：Encoder 采用padding Mask。Decoder 采用 Padding Mask + Look-ahead Mask。 
+        - **总结**：Encoder 负责把“源序列”编码成富含全局语义的分布式表示；Decoder则在表示条件下，通过 mask 自注意力+交叉注意力逐词自回归地生成“目标序列”。
+
 ## 一、self-Attention机制
 
 ### 1.1. Self-Attention机制
@@ -124,3 +151,9 @@ $$
 \text{RMSNorm}(x)=\frac {x}
 {\sqrt {\frac {1}{d} \sum ^d_{i=1} x^2_i + \varepsilon}}\cdot \gamma
 $$
+
+**Transformer中的归一化选择了Layer Normalization**。
+
+BN 是对 batch 的维度做归一化，也就是针对不同样本的同一特征做操作。LN 是对hidden 的维度去做归一化，也就是针对单个样本的不同特征做操作。因此LB可以不受样本数的限制。 
+
+具体而言，BN 就是在每个维度上统计所有样本的值，计算均值和方差；LN是在每个样本上统计所有维度的值，计算均值和方差。所以BN在每个维度上分布是稳定的，LN是每个样本的分布是稳定的。
