@@ -20,9 +20,48 @@ from torch.distributed.fsdp.wrap import (
     transformer_auto_wrap_policy,
     size_based_auto_wrap_policy,
 )
+import functools
+
 
 # 假设你有一个 Transformer 模型
-from my_model import MyTransformerBlock, MyLargeModel
+# from my_model import MyTransformerBlock, MyLargeModel
+# 假设你有一个数据加载器
+# from my_dataloader import dataloader
+criterion = nn.CrossEntropyLoss()
+
+class MyTransformerBlock(nn.Module):
+    def __init__(self):
+        super(MyTransformerBlock, self).__init__()
+        self.attention = nn.MultiheadAttention(embed_dim=512, num_heads=8)
+        self.ffn = nn.Sequential(
+            nn.Linear(512, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 512)
+        )
+        self.norm1 = nn.LayerNorm(512)
+        self.norm2 = nn.LayerNorm(512)
+
+    def forward(self, x):
+        attn_output, _ = self.attention(x, x, x)
+        x = self.norm1(x + attn_output)
+        ffn_output = self.ffn(x)
+        x = self.norm2(x + ffn_output)
+        return x
+
+class MyLargeModel(nn.Module):
+    def __init__(self):
+        super(MyLargeModel, self).__init__()
+        self.layers = nn.ModuleList([MyTransformerBlock() for _ in range(24)])
+        self.classifier = nn.Linear(512, 10)  # 假设10类分类任务
+
+    def forward(self, x):
+        for layer in self.layers:
+            x = layer(x)
+        x = x.mean(dim=1)  # 全局平均池化
+        x = self.classifier(x)
+        return x
+
+
 
 def setup():
     # 初始化进程组
@@ -31,6 +70,15 @@ def setup():
 
 def cleanup():
     dist.destroy_process_group()
+
+def dataloder():
+    # 伪造一个数据加载器
+    dataset = torch.utils.data.TensorDataset(
+        torch.randn(1000, 10, 512),  # 假设输入是 (batch_size, seq_len, feature_dim)
+        torch.randint(0, 10, (1000,)) # 假设10类分类任务
+    )
+    sampler = DistributedSampler(dataset)
+    return torch.utils.data.DataLoader(dataset, batch_size=8, sampler=sampler)
 
 def train():
     setup()
@@ -70,7 +118,7 @@ def train():
     optimizer = optim.AdamW(model.parameters(), lr=1e-4)
 
     # 6. 标准训练循环
-    for data, target in dataloader:
+    for data, target in dataloder():
         data, target = data.cuda(), target.cuda()
         
         optimizer.zero_grad()
@@ -89,6 +137,8 @@ def train():
         torch.save(cpu_state, "model.pt")
 
     cleanup()
+
+
 
 if __name__ == "__main__":
     # 通常使用 torchrun 启动

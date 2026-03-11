@@ -2,6 +2,8 @@ import torch
 import torch.distributed as dist
 import torch.nn as nn
 
+# EP 是一种专家并行的实现方式，适用于 MoE（Mixture of Experts）模型
+
 class ExpertParallelLayer(torch.nn.Module):
     def __init__(self, num_experts, input_dim, hidden_dim, world_size):
         super().__init__()
