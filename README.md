@@ -55,7 +55,7 @@
         - MCP (Model Context Protocol) 标准
         - Tool Use (Function Calling) 原理
 - [📂 07. 思考与创新 (Thinking Space)](./07_Thinking_Space/)
-
+- [📂 08. 面经（Interview Experience）](./08_Interview_Experience/LLM/README.md)
 ---
 
 ## ⏰后续计划
