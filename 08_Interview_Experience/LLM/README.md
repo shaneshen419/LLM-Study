@@ -3,3 +3,6 @@
 2. [MOE的公式是什么？ MOE 的 expert parallel 如何做的？](./question/02.md)
 3. [你用了 swift 参数怎么设置的，有 2 个 node 你如何分配你的训练参数？](./question/03.md)
 4. [做 grpo 遇到熵崩没有？你是怎么理解的？](./question/04.md)
+5. [如何解决大模型容易 reward hacking，如何解决？](./question/05.md)
+6. [VLLM prefix cache的原理](./question/06.md)
+7. [在训练 grpo 时候应该更新rollout 的 mllm 吗？](./question/07.md)
