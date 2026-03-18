@@ -6,7 +6,7 @@
 
 - **GPU 架构基础**
   - GPU 显存层级、计算单元与带宽瓶颈
-- **大模型并行策略 (Parallelism)**
+- [大模型并行策略 (Parallelism)](./parallel_strategy/README.md)
   - **DP** (Data Parallel)：数据并行
   - **TP** (Tensor Parallel)：张量并行
   - **PP** (Pipeline Parallel)：流水线并行
@@ -16,6 +16,9 @@
   - 算法层面：Gradient Checkpointing (以时间换空间)
   - 工程层面：Offloading (卸载到CPU), Mixed Precision (混合精度)
   - SGLang 的 DP 算法优化
+  - vLLM：KV Cache、PageAttention、Prefix Cache
+  - [agentic 长文本训练时候容易 oom，好的优化方案](../08_Interview_Experience/LLM/question/08.md)
+  - [长上下文压缩有哪些方法？](../08_Interview_Experience/LLM/question/09.md)
 
 ## 🎯 学习重点
 - 在千亿参数模型训练中，如何组合使用 DP/TP/PP？

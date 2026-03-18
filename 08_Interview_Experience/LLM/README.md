@@ -6,3 +6,5 @@
 5. [如何解决大模型容易 reward hacking，如何解决？](./question/05.md)
 6. [VLLM prefix cache的原理](./question/06.md)
 7. [在训练 grpo 时候应该更新rollout 的 mllm 吗？](./question/07.md)
+8. [agentic 长文本训练时候容易 oom，你有什么好的优化吗？ ](./question/08.md)
+9. [长上下文压缩有哪些方法？](./question/09.md)
