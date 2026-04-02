@@ -1,0 +1,4 @@
+index.html linguist-vendored
+*.html linguist-vendored
+*.css linguist-vendored
+docs/*.md linguist-documentation=false
