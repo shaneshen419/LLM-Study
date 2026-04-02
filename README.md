@@ -29,6 +29,7 @@
     - 并行策略：DP、TP、PP、SP、EP
         - [parallel strategy](./03_Distributed_Engineering/parallel_strategy/)
     - 显存优化：OOM解决方案
+        - [OOM解决方案](./03_Distributed_Engineering/OOM解决方案.md)
         - [agentic 长文本训练时候容易 oom，好的优化方案](./08_Interview_Experience/LLM/question/08.md)
         - [长上下文压缩有哪些方法？](./08_Interview_Experience/LLM/question/09.md)
     - SGLang：DP算法优化
